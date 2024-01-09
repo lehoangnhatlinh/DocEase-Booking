@@ -1,10 +1,25 @@
-import React from 'react'
 import Home from '../pages/Home'
 import Services from '../pages/Services'
+import Contact from '../pages/Contact'
+import Signup from '../pages/Signup'
+import Login from '../pages/Login'
+import Doctors from '../pages/Doctors.jsx/Doctor'
+import DoctorDetails from '../pages/Doctors.jsx/DoctorDetails'
+
+import { Route, Routes } from 'react-router-dom'
 
 const Routers = () => {
   return (
-    <div>Routers</div>
+    <Routes>
+      <Route path='/' element={<Home/>} />
+      <Route path='/home' element={<Home/>} />
+      <Route path='/doctors' element={<Doctors/>} />
+      <Route path='/doctor/:id' element={<DoctorDetails/>} />
+      <Route path='/login' element={<Login/>} />
+      <Route path='/register' element={<Signup/>} />
+      <Route path='/contact' element={<Contact/>} />
+      <Route path='/services' element={<Services/>} />
+    </Routes>
   )
 }
 
