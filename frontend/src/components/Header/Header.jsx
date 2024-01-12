@@ -1,8 +1,8 @@
 import {useEffect, useRef} from 'react'
-import userImg from '../../assets/images/avatar-icon.png'
 import logo from '../../assets/images/logo4.png'
+import userImg from '../../assets/images/avatar-icon.png'
 import { NavLink, Link } from 'react-router-dom'
-import { FaBars, FaHospital } from "react-icons/fa"
+import {FaBars} from 'react-icons'
 
 const navLink = [
   {
