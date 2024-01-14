@@ -5,22 +5,22 @@ import {AiFillYoutube, AiFillFacebook, AiFillInstagram, AiFillGithub} from 'reac
 const socialLinks = [
   {
     path: "", 
-    icon: <AiFillYoutube/> 
+    icon: <AiFillYoutube className='group-hover:text-white w-4 h-5'/> 
   }, 
 
   {
     path: "", 
-    icon: <AiFillFacebook/> 
+    icon: <AiFillFacebook className='group-hover:text-white w-4 h-5'/> 
   }, 
 
   {
     path: "", 
-    icon: <AiFillInstagram/> 
+    icon: <AiFillInstagram className='group-hover:text-white w-4 h-5'/> 
   }, 
 
   {
     path: "https://github.com/lehoangnhatlinh/DocEase-Booking", 
-    icon: <AiFillGithub/> 
+    icon: <AiFillGithub className='group-hover:text-white w-4 h-5'/> 
   }, 
 ]
 
@@ -86,11 +86,11 @@ const Footer = () => {
     
   return (
     <footer className="pb-16 pt-10">
-      <div className="container flex justify-between">
+      <div className="container flex justify-between flex-col md:flex-row flex-wrap gap-[30px]">
         <div className="flex justify-between flex-col md:flex-row flex-wrap gap-[30px]">
           <div>
             <img src={logo} alt="" />
-            <p className="text-[16px] leading-7 font-[400] text-textColor">
+            <p className="text-[16px] mt-1 leading-7 font-[400] text-textColor">
               Copyright © {year} developed by G4 in FPTU all right reserved.
             </p>
 
