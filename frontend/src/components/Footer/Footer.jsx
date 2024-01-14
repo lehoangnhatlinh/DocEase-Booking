@@ -1,4 +1,3 @@
-import React from "react";
 import {Link} from 'react-router-dom';
 import logo from '../../assets/images/logo4.png';
 import {AiFillYoutube, AiFillFacebook, AiFillInstagram, AiFillGithub} from 'react-icons/ai'

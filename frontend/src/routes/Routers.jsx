@@ -1,6 +1,6 @@
 import Home from '../pages/Home'
 import Services from '../pages/Services'
-import Contact from '../pages/Contact'
+import AboutUs from '../pages/AboutUs'
 import Signup from '../pages/Signup'
 import Login from '../pages/Login'
 import Doctors from '../pages/Doctors.jsx/Doctor'
@@ -17,7 +17,7 @@ const Routers = () => {
       <Route path='/doctor/:id' element={<DoctorDetails/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/register' element={<Signup/>} />
-      <Route path='/contact' element={<Contact/>} />
+      <Route path='/aboutus' element={<AboutUs/>} />
       <Route path='/services' element={<Services/>} />
     </Routes>
   )
