@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react'
 import logo from '../../assets/images/logo4.png'
 import userImg from '../../assets/images/avatar-icon.png'
 import { NavLink, Link } from 'react-router-dom'
-import {FaBars} from 'react-icons'
+import { FaBars } from 'react-icons/fa';
 
 const navLink = [
   {
@@ -21,8 +21,8 @@ const navLink = [
   },
 
   {
-    path: '/contact',
-    display: 'Contact'
+    path: '/aboutus',
+    display: 'About Us'
   },
 ]
 
@@ -35,7 +35,7 @@ const Header = () => {
     window.addEventListener('scroll', () => {
       if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         headerRef.current.classList.add('sticky_header')
-      } else {
+      } else {  
         headerRef.current.classList.remove('sticky_header')
       }
     })
@@ -44,7 +44,7 @@ const Header = () => {
   useEffect (() => {
     handleStickyHeader()
     return() => window.removeEventListener('scroll', handleStickyHeader)
-  })
+  }, [])
 
   const toggleMenu = () => menuRef.current.classList.toggle('show_menu')
 
