@@ -1,7 +1,8 @@
-import logo from '../../assets/images/logo.png'
+import {useEffect, useRef} from 'react'
+import logo from '../../assets/images/logo4.png'
 import userImg from '../../assets/images/avatar-icon.png'
 import { NavLink, Link } from 'react-router-dom'
-import { FaBars } from "react-icons/fa"
+import { FaBars } from 'react-icons/fa';
 
 const navLink = [
   {
@@ -20,24 +21,45 @@ const navLink = [
   },
 
   {
-    path: '/contact',
-    display: 'Contact'
+    path: '/aboutus',
+    display: 'About Us'
   },
 ]
 
 const Header = () => {
+
+  const headerRef = useRef(null);
+  const menuRef = useRef(null) 
+
+  const handleStickyHeader = () => {
+    window.addEventListener('scroll', () => {
+      if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        headerRef.current.classList.add('sticky_header')
+      } else {  
+        headerRef.current.classList.remove('sticky_header')
+      }
+    })
+  }
+
+  useEffect (() => {
+    handleStickyHeader()
+    return() => window.removeEventListener('scroll', handleStickyHeader)
+  }, [])
+
+  const toggleMenu = () => menuRef.current.classList.toggle('show_menu')
+
   return (
     <header>
-      <div className="header flex items-center">
+      <div className="header flex items-center" ref={headerRef}>
         <div className="container">
           <div className="flex justify-between items-center">
             {/* ========= logo  ========= */}
-            <div>
+            <div className='flex'>
               <img src={logo} alt="" />
             </div>
 
             {/* ========= menu  ========= */}
-            <div className="navigation">
+            <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <ul className="menu flex items-center gap-[2.7rem]">
                 {navLink.map((items, index) => (
                   <li key={index}>
@@ -72,7 +94,7 @@ const Header = () => {
                   </button>     
               </Link> 
 
-              <span className='md:hidden'>
+              <span className='md:hidden' onClick={toggleMenu}>
                 <FaBars className='w-6 h-6 cursor-pointer' />
               </span>       
             </div>
