@@ -89,10 +89,17 @@ const Header = () => {
               </div>
 
               <Link to="/login">
-                 <button className='btn my-3 py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>
+                 <button className='btn btn-primary my-3 py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>
                     Login
                   </button>     
               </Link> 
+                {/* <Link to="/profile">
+                    <div className='d-flex items-center justify-center'>
+                      <img src={userImg} alt="avt" />
+                      <p className='ml-2'>Edogaru</p>
+                    </div>
+                </Link> */}
+
 
               <span className='md:hidden' onClick={toggleMenu}>
                 <FaBars className='w-6 h-6 cursor-pointer' />
