@@ -1,10 +1,10 @@
 import Home from '../pages/Home'
 import Services from '../pages/Services'
-import AboutUs from '../pages/AboutUs'
+import AboutUs from '../pages/Aboutus'
 import Signup from '../pages/Signup'
 import Login from '../pages/Login'
-import Doctors from '../pages/Doctors.jsx/Doctor'
-import DoctorDetails from '../pages/Doctors.jsx/DoctorDetails'
+import Doctors from '../pages/Doctors/Doctor'
+import DoctorDetails from '../pages/Doctors/DoctorDetails'
 import Profile from '../pages/Profile'
 import ForgotPassword from '../pages/ForgotPassword'
 
