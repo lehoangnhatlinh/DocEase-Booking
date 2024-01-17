@@ -171,19 +171,19 @@ const Home = () => {
       {/* ========== how work it end ========== */}
 
       <AboutUs />
-      
+
       {/* ========== Service section ========== */}
-      <section className='bg-slate-50'>
+      <section className="bg-slate-50">
         <div className="container">
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center">Our medical services</h2>
-            <p className='text_para text-center'>
+            <p className="text_para text-center">
               World-class care for everyone. Our healthy System offers
               unmatched, expert health care.
             </p>
           </div>
 
-          <ServiceList/>
+          <ServiceList />
         </div>
       </section>
       {/* ========== Service section end ========== */}
@@ -191,15 +191,15 @@ const Home = () => {
       {/* ========== Doctor section ========== */}
       <section>
         <div className="container">
-          <div className='xl:w-[470px] mx-auto'>
-            <h2 className='heading text-center'>Our great doctors</h2>
-            <p className='text_para text-center'>
+          <div className="xl:w-[470px] mx-auto">
+            <h2 className="heading text-center">Our great doctors</h2>
+            <p className="text_para text-center">
               World-class care for everyone. Our healthy System offers
               unmatched, expert health care.
             </p>
           </div>
 
-          <DoctorList/>
+          <DoctorList />
         </div>
       </section>
       {/* ========== Doctor section end========== */}
@@ -207,18 +207,32 @@ const Home = () => {
       {/* ========== Faq section ========== */}
       <section>
         <div className="container">
-          <div className='flex justify-between items-center gap-[50px] lg:gap-0'>
-            <div className='w-1/2 hidden md:block'>
+          <div className="flex justify-between items-center gap-[50px] lg:gap-0">
+            <div className="w-1/2 hidden md:block">
               <img src={faqImg} alt="" />
             </div>
-            <div className='w-full md:w-1/2'>
-              <h2 className='heading'>Most question by our beloved patients</h2>
-              <FaqList/>
+            <div className="w-full md:w-1/2">
+              <h2 className="heading">Most question by our beloved patients</h2>
+              <FaqList />
             </div>
           </div>
         </div>
       </section>
       {/* ========== Faq section end========== */}
+
+      {/* ========== Testimonial ========== */}
+      {/* <section>
+        <div className="container">
+          <div className='w-[470px] mx-auto'>
+            <h2 className="heading text-center">What our patients</h2>
+            <p className='text_para text-center'>
+              World-class care for everyone. Our healthy System offers
+              unmatched, expert health care.
+            </p>
+          </div>
+        </div>
+      </section> */}
+      {/* ========== Testimonial end========== */}
     </>
   );
 }
