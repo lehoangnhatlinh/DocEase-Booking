@@ -1,107 +1,141 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
-import Blur from "../assets/images/hero-bg.png";
-import Validation from "../utils/SignupValidation";
-import draw2 from "../assets/images/draw2.webp";
+import signupImg from "../assets/images/signup01.png";
+import avatar from '../assets/images/avatar-icon.png'
 
 const Signup = () => {
-  const [values, setValues] = useState({
-    name: "",
+  const [selectFile, setSelectFile] = useState(null);
+
+  const [formData, setFormData] = useState({
+    fullName: "",
     email: "",
+    photo: selectFile,
     password: "",
   });
-  const [errors, setErrors] = useState({});
-  const handleInput = (e) => {
-    setValues((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors(Validation(values));
+
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   return (
-    <div className="position-relative w-100">
-      <img className="w-100" style={{ height: "500px" }} src={Blur} alt="" />
-      <div className="position-absolute top-50 start-50 translate-middle w-100 d-flex justify-content-center align-items-center vh-75 pt-4">
-        <img
-          className="w-50 d-flex justify-content-center align-items-center mb-5"
-          src={draw2}
-          alt=""
-        />
-        <div className="bg-white shadow-lg p-3 mb-5 bg-body rounded w-25">
-          <h2 className="d-flex justify-content-center align-items-center text-uppercase fs-2">
-            <strong>REGISTER</strong>
-          </h2>
-          <form action=" " onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="name">
-                {" "}
-                <strong>Name</strong>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                className="form-control rounded-0"
-                name="name"
-                onChange={handleInput}
-              />
-              {errors.name && (
-                <span className="text-danger">{errors.name} </span>
-              )}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="email">
-                {" "}
-                <strong>Email</strong>
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="form-control rounded-0"
-                name="email"
-                onChange={handleInput}
-              />
-              {errors.email && (
-                <span className="text-danger">{errors.email} </span>
-              )}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password">
-                {" "}
-                <strong>Password</strong>
-              </label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className="form-control rounded-0"
-                name="password"
-                onChange={handleInput}
-              />
-              {errors.password && (
-                <span className="text-danger">{errors.password} </span>
-              )}
-            </div>
-            <button
-              type="submit"
-              className="btn-success bg-primary w-100 p-2 text-white mt-2 mb-2 rounded-0"
-            >
-              Register
-            </button>
-            <p className="text-black-50">
-              You are agree to aour terms and policies
-            </p>
-            <div className="d-flex">
-              <p className="mt-2">Have an account?</p>
-              <Link to="/login" className="text-primary mt-2">
-                {" "}
-                Login here
-              </Link>
-            </div>
-          </form>
+    <section className="px-5 xl:px-0 ">
+      <div className="w-[80%] lg:w-[70%] mx-auto rounded-lg border border-solid border-slate-50">
+        <div className="rounded bg-light-100 grid grid-cols-1 lg:grid-cols-2">
+          <div className="lg:block rounded-l-lg">
+            <figure className=" rounded-l-lg">
+              <img src={signupImg} alt="" className="w-[90%] lg:w-[90%] h-[650px] rounded-l-lg" />
+            </figure>
+          </div>
+
+          <div className="ml-[-50px] rounded-l-lg lg:pl-16 px-10">
+            <h2 className="text-headingColor text-[30px] leading-9 font-bold my-8 text-center">
+              Create an <span className="text-primaryColor">account</span>
+            </h2>
+
+            <form className="py-4 md:py-8">
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className="w-full border-b border-solid border-slate-300 px-3 py-3 md:ml-5
+                  focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full border-b border-solid border-slate-300 px-3 py-3  md:ml-5 
+                  focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  className="w-full border-b border-solid border-slate-300 px-3 py-3 md:ml-5 
+                  focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer"
+                  required
+                />
+              </div>
+
+              <div className="flex justify-between items-center">
+                <div className="mb-4 flex items-center gap-2">
+                  <figure
+                    className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor 
+                  flex items-center justify-center md:ml-5"
+                  >
+                    <img src={avatar} alt="" className="w-full rounded-full" />
+                  </figure>
+                  <div className="relative w-[130px] h-[50px]">
+                    <input
+                      type="file"
+                      name="photo"
+                      id="customFile"
+                      accept=".jpg, .png"
+                      className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+
+                    <label
+                      htmlFor="customFile"
+                      className="absolute top-0 left-0 w-full h-full flex items-center px-3 py-[0.375rem] text-[16px] leading-6 
+                    overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
+                    >
+                      Upload photo
+                    </label>
+                  </div>
+                </div>
+
+                <div className="mt-[-20px]">
+                  <label className="text-headingColor font-bold text-[16px] leading-7">
+                    Gender: 
+                    <select name="gender" className="text-textColor font-semibold text-[15px] leading-7 px-3 py-3 focus:outline-none">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <div className="mt-7">
+                <button
+                  type="submit"
+                  className="py-[10px] px-4 w-full bg-primaryColor text-white leading-[30px] text-[18px] rounded-lg md:ml-5 ms:ml-5"
+                >
+                  Register
+                </button>
+              </div>
+
+              <p className="mt-5 text-[18px] text-textColor text-center">
+                Already have an account?
+                <Link
+                  to="/login"
+                  className="text-primaryColor ml-2 font-medium"
+                >
+                  Login
+                </Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
