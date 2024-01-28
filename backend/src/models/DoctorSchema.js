@@ -12,7 +12,7 @@ const DoctorSchema = new mongoose.Schema({
   },
 
   // Fields for doctors only
-  specialization: { type: String },
+  Cardiology: { type: String },
   qualifications: {
     type: Array,
   },
