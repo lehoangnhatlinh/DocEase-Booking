@@ -54,7 +54,7 @@ const FeedbackForm = () => {
           className="border border-solid border-[#0066ff34] focus:outline-primaryColor w-full px-4 py-3 rounded-md"
           rows="5"
           placeholder="Write your message"
-          onChange={() => setReivewText(e.target.value)}
+          onChange={(e) => setReivewText(e.target.value)}
         ></textarea>
       </div>
 
