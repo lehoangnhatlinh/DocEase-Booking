@@ -163,8 +163,8 @@ const Profile = ({ user }) => {
                 className="absolute top-0 left-0 w-full h-full flex items-center px-3 py-[0.375rem] text-[16px] leading-6 
                     overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
               >
-                {/* Upload photo */}
-                {selectedFile ? selectedFile.name :"Upload Photo"}
+                Upload photo
+                {/* {selectedFile ? selectedFile.name :"Upload Photo"} */}
               </label>
             </div>
           </div>
