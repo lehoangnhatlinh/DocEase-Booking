@@ -1,4 +1,4 @@
-import User from '../models/UserSchema.js'; 
+import User from '../models/User.model.js'; 
 
 export const getAllUser = async (req, res) => {
     try {
@@ -44,3 +44,32 @@ export const deleteUser = async (req, res) => {
         res.status(500).json({success: false, message: 'Failed to delete'});
     }
 }
+
+export const changeUserRoleToDoctor = async (req, res, next) => {
+    try {
+      const user = await User.findByIdAndUpdate(req.params._id, { role: "doctor" }).exec();
+      if (user) {
+        // Tạo một bản ghi mới trong bảng Doctor từ thông tin của người dùng
+        const doctor = new Doctor({
+          _id: user._id,
+          email: user.email,
+          password: user.password,
+          name: user.name,
+          phone: user.phone,
+          photo: user.photo,
+          gender: user.gender,
+          role: user.role,
+          bloodType: user.bloodType,
+          appointments: user.appointments,
+          // Thêm các trường khác cho bác sĩ nếu cần thiết
+        });
+        await doctor.save();
+        return doctor;
+      } else {
+        throw new Error("User not found");
+      }
+    } catch (error) {
+      console.error("Error changing user role to doctor:", error);
+      throw error;
+    }
+  }

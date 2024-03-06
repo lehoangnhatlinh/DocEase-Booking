@@ -1,5 +1,5 @@
-import User from '../models/UserSchema.js'; 
-import Doctor from '../models/DoctorSchema.js';
+import User from '../models/User.model.js'; 
+import Doctor from '../models/Doctor.model.js';
 import bcrypt from "bcryptjs"; 
 import jwt from 'jsonwebtoken'; 
 
@@ -31,7 +31,6 @@ export const register = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            name,
             photo,
             gender,
             role: userRole

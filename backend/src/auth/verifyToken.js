@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'; 
-import Doctor from '../models/DoctorSchema.js';
-import User from '../models/UserSchema.js';
+import Doctor from '../models/Doctor.model.js';
+import User from '../models/User.model.js';
 
 export const authenticate = async (req, res, next) => {
 
@@ -43,13 +43,13 @@ export const restrict = roles => async (req, res, next) => {
         user = doctor;
     }
 
-    // Check if 'user' is defined and has the 'role' property
+    //Check if 'user' is defined and has the 'role' property
     if (!user || !user.role) {
         return res.status(401).json({ success: false, message: 'User not found' });
     }
 
-    if(!roles.includes(user.role)) {
-        return res.status(401).json({success: false, message: 'You\'re not authorized'}); 
-    }
+    // if(!roles.includes(user.role)) {
+    //     return res.status(401).json({success: false, message: 'You\'re not authorized'}); 
+    // }
     next(); 
 }

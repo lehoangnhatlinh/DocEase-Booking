@@ -1,4 +1,4 @@
-import React from 'react'
+import {React} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import avtProfile from '../assets/images/hero-img02.png'
 
