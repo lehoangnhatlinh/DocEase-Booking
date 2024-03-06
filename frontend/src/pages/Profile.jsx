@@ -1,68 +1,200 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import avtProfile from '../assets/images/hero-img02.png'
+import avatar from "../assets/images/avatar-icon.png";
+import { useNavigate } from "react-router-dom";
+// import signupImg from "../assets/images/signup01.png";
+import { useState } from "react";
+import uploadImageToCloudinary from "../utils/uploadCloudinary";
+import { BASE_URL, token } from "../../config";
+import { toast } from "react-toastify";
+import HashLoader from "react-spinners/HashLoader";
 
-const Profile = () =>{
-    return(
+const Profile = ({ user }) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-     <div className="container rounded bg-white mt-5 mb-5">
-        <div className="row">
-            <div className="col-md-3 border-right">
-                <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img className="rounded-circle mt-5" width="150px" src={avtProfile}/><span className="font-weight-bold">Edogaru</span><span className="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    photo: null,
+    password: "",
+    gender: "",
+    bloodType: "",
+  });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setFormData({
+      name: user.name,
+      email: user.email,
+      photo: user.photo,
+      gender: user.gender,
+      bloodType: user.bloodType,
+    });
+  }, [user]);
+
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+  const handleFileInputChange = async (event) => {
+    const file = event.target.files[0];
+
+    const data = await uploadImageToCloudinary(file);
+
+    setSelectedFile(data.url);
+    setFormData({ ...formData, photo: data.url });
+  };
+  const submitHandler = async (event) => {
+    event.prevenDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${BASE_URL}/users/${user._id}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const { message } = await res.json();
+
+      if (!res.ok) {
+        throw new Error(message);
+      }
+
+      setLoading(false);
+      toast.success(message);
+      navigate("/users/profile/me");
+    } catch (err) {
+      toast.error(err.message);
+      setLoading(false);
+    }
+  };
+  return (
+    <div className="mt-10">
+      <form className="py-4 md:py-8" onSubmit={submitHandler}>
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            className="w-full border-b border-solid border-slate-300 px-3 py-3 md:ml-5
+                  focus:outline-none focus:border-b-primaryColor text-[18px] leading-7 text-headingColor
+                  placeholder:text-textColor rounded-md cursor-pointer"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="w-full border-b border-solid border-slate-300 px-3 py-3  md:ml-5 
+                  focus:outline-none focus:border-b-primaryColor text-[18px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer"
+            // required
+            aria-readonly
+            readOnly
+          />
+        </div>
+
+        <div className="mb-4">
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            className="w-full border-b border-solid border-slate-300 px-3 py-3 md:ml-5 
+                  focus:outline-none focus:border-b-primaryColor text-[18px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer"
+            
+          />
+        </div>
+
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Blood Type"
+            name="bloodType"
+            value={formData.bloodType}
+            onChange={handleInputChange}
+            className="w-full border-b border-solid border-slate-300 px-3 py-3 md:ml-5 
+                  focus:outline-none focus:border-b-primaryColor text-[18px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer"
+          />
+        </div>
+
+        <div className="flex justify-between items-center">
+          <div className="mb-4 flex items-center gap-2">
+            {formData.photo && (
+              <figure
+                className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor 
+                    flex items-center justify-center md:ml-5"
+              >
+                <img
+                  src={formData.photo}
+                  alt=""
+                  className="w-full rounded-full"
+                />
+              </figure>
+            )}
+
+            <div className="relative w-[130px] h-[50px]">
+              <input
+                type="file"
+                name="photo"
+                id="customFile"
+                onChange={handleFileInputChange}
+                accept=".jpg, .png"
+                className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+              />
+
+              <label
+                htmlFor="customFile"
+                className="absolute top-0 left-0 w-full h-full flex items-center px-3 py-[0.375rem] text-[16px] leading-6 
+                    overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
+              >
+                {/* Upload photo */}
+                {selectedFile ? selectedFile.name :"Upload Photo"}
+              </label>
             </div>
-            <div className="col-md-5 border-right">
-                <div className="mb-2">
-                    <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h4 className="text-right"><b>Profile Settings</b></h4>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12"><label className="pt-1 pb-1">FullName</label><input type="text" className="form-control" placeholder="Enter your name" value=""/></div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-12"><label className="pt-1 pb-1">Mobile Number</label><input type="text" className="form-control" placeholder="Enter phone number" value=""/></div>
-                        <div className="col-md-12"><label className="pt-1 pb-1">Address</label><input type="text" className="form-control" placeholder="Enter your address" value=""/></div>
-                        <div className="col-md-12"><label className="pt-1 pb-1">Job</label><input type="text" className="form-control" placeholder="Enter your job" value=""/></div>
-                        <div className="col-md-12"><label className="pt-1 pb-1">Relative's Phone Number</label><input type="text" className="form-control" placeholder="Enter relative's phone number" value=""/></div>
-                        <div className="col-md-12"><label className="pt-1 pb-1">Relative's Address</label><input type="text" className="form-control" placeholder="Enter relative's address" value=""/></div>
-                    </div>
-                    
-                    
-                </div>
-            </div>
-            <div className="col-md-3 border-right">
-                <div className="mb-3"><b>Change Password</b></div>
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label className='pb-1'>Current Password</label>
-                                <input className="form-control" type="password" placeholder="••••••"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label className='p-1'>New Password</label>
-                                <input className="form-control" type="password" placeholder="••••••"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <div className="form-group">
-                                <label className='p-1'>Confirm <span className="d-none d-xl-inline">Password</span></label>
-                                <input className="form-control" type="password" placeholder="••••••"/>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            <div className="mt-2 text-center"><button className="text-white bg-primary p-2 rounded" type="button">Save Profile</button></div>
+          </div>
+
+          <div className="mt-[-20px]">
+            <label className="text-headingColor font-bold text-[16px] leading-7">
+              Gender:
+              <select
+                name="gender"
+                className="text-textColor font-semibold text-[15px] leading-7 px-3 py-3 focus:outline-none"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div className="mt-7">
+          <button
+            type="submit"
+            className="py-[10px] px-4 w-full bg-primaryColor text-white leading-[30px] text-[18px] rounded-lg md:ml-5 ms:ml-5"
+          >
+            {loading ? <HashLoader size={25} color="#ffffff" /> : "Update"}
+          </button>
+        </div>
+      </form>
     </div>
-   
-        
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

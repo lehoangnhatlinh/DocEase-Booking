@@ -4,8 +4,13 @@ import heroImg03 from '../assets/images/hero-img03.png'
 import icon01 from '../assets/images/icon01.png'
 import icon02 from '../assets/images/icon02.png'
 import icon03 from '../assets/images/icon03.png'
+import faqImg from '../assets/images/faq-img.png'
 import { Link } from 'react-router-dom'
 import {BsArrowRight} from 'react-icons/bs'
+import AboutUs from './Aboutus'
+import ServiceList from '../components/Services/ServiceList'
+import DoctorList from '../components/Doctors/DoctorList'
+import FaqList from '../components/Faq/FaqList'
 
 const Home = () => {
   return (
@@ -75,7 +80,7 @@ const Home = () => {
       </section>
       {/* ========== banner end ========== */}
 
-      {/* ==========  ========== */}
+      {/* ========== how work it ========== */}
       <section>
         <div className="container">
           <div className="lg:w-[470px] mx-auto">
@@ -130,7 +135,7 @@ const Home = () => {
                 <Link
                   to="/doctors"
                   className="w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] flex items-center justify-center 
-                  mt-[30px] mx-auto hover:bg-primaryColor hover:border-none"
+                  mt-[30px] mx-auto group hover:bg-primaryColor hover:border-none"
                 >
                   <BsArrowRight className="group-hover:text-white w-6 h-5" />
                 </Link>
@@ -163,6 +168,71 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* ========== how work it end ========== */}
+
+      <AboutUs />
+
+      {/* ========== Service section ========== */}
+      <section className="bg-slate-50">
+        <div className="container">
+          <div className="xl:w-[470px] mx-auto">
+            <h2 className="heading text-center">Our medical services</h2>
+            <p className="text_para text-center">
+              World-class care for everyone. Our healthy System offers
+              unmatched, expert health care.
+            </p>
+          </div>
+
+          <ServiceList />
+        </div>
+      </section>
+      {/* ========== Service section end ========== */}
+
+      {/* ========== Doctor section ========== */}
+      <section>
+        <div className="container">
+          <div className="xl:w-[470px] mx-auto">
+            <h2 className="heading text-center">Our great doctors</h2>
+            <p className="text_para text-center">
+              World-class care for everyone. Our healthy System offers
+              unmatched, expert health care.
+            </p>
+          </div>
+
+          <DoctorList />
+        </div>
+      </section>
+      {/* ========== Doctor section end========== */}
+
+      {/* ========== Faq section ========== */}
+      <section>
+        <div className="container">
+          <div className="flex justify-between items-center gap-[50px] lg:gap-0">
+            <div className="w-1/2 hidden md:block">
+              <img src={faqImg} alt="" />
+            </div>
+            <div className="w-full md:w-1/2">
+              <h2 className="heading">Most question by our beloved patients</h2>
+              <FaqList />
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* ========== Faq section end========== */}
+
+      {/* ========== Testimonial ========== */}
+      {/* <section>
+        <div className="container">
+          <div className='w-[470px] mx-auto'>
+            <h2 className="heading text-center">What our patients</h2>
+            <p className='text_para text-center'>
+              World-class care for everyone. Our healthy System offers
+              unmatched, expert health care.
+            </p>
+          </div>
+        </div>
+      </section> */}
+      {/* ========== Testimonial end========== */}
     </>
   );
 }

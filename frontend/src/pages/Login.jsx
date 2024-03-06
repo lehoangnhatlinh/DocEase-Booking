@@ -1,59 +1,139 @@
-import React, { useState } from 'react'
-import "bootstrap/dist/css/bootstrap.min.css"
-import { Link } from 'react-router-dom'
-import Blur from '../assets/images/hero-bg.png'
-import Validation from '../utils/LoginValidation'
-import draw2 from '../assets/images/draw2.webp'
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom"; 
+import { BASE_URL } from "../../config";
+import { toast } from "react-toastify"
+import {authContext} from '../context/AuthContext.jsx'; 
+import HashLoader from "react-spinners/HashLoader.js";
 
 const Login = () => {
-  const [values, setValues] = useState({
-    email: '',
-    password: ''
-  })
-  const [errors, setErrors] = useState({})
-  const handleInput = (e) => {
-      setValues(prev => ({...prev, [e.target.name]: [e.target.value]}))
-  }
-  const handleSubmit = (e) => {
-      e.preventDefault()
-      setErrors(Validation(values))
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false); 
+  const navigate = useNavigate();
+  const {dispatch} = useContext(authContext);
+  const [error, setError] = useState({}); 
+
+  const handleInputChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  // const submitHandle = async event => {
+  //   event.preventDefault()
+  //   setError(LoginValidation(formData)); 
+  // }
+
+  const submitHandle = async event => {
+    event.preventDefault()
+    setLoading(true)
+
+    try {
+      const res = await fetch (`${BASE_URL}/auth/login`, {
+        method: 'post', 
+        headers: {
+          'Content-Type':'application/json'
+        }, 
+        body: JSON.stringify(formData)
+      })
+
+      const result = await res.json()
+
+      if(!res.ok) {
+        throw new Error(result.message)
+      }
+
+      dispatch({
+        type: 'LOGIN_SUCCESS', 
+        payload: {
+          user: result.data, 
+          token: result.token, 
+          role: result.role
+        }
+      })
+
+      console.log(result, "login data")
+
+      setLoading(false)
+      toast.success(result.message)
+      navigate('/home')
+      console.log(result.message)
+    } catch (error) {
+      toast.error(error.message)
+      setLoading(false)
+    }
   }
 
+
+  
 
   return (
-    <div className='position-relative w-100'>
-        <img className='w-100' style={{ height: '500px' }} src={Blur} alt=''/>
-            <div className='position-absolute top-50 start-50 translate-middle w-100 d-flex justify-content-center align-items-center vh-75 pt-4'>
-              <img className='w-50' src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg' alt='' />
-                <div className='bg-white shadow-lg p-3 mb-5 bg-body rounded w-25'>
-                  <h2 className='d-flex justify-content-center align-items-center text-uppercase fs-2'><strong>LOGIN</strong></h2>
-                    <form action='' onSubmit={handleSubmit}>
-                        <div className='mb-3'>
-                            <label htmlFor='email'> <strong>Email</strong></label>
-                            <input type="email" placeholder='Enter your email' 
-                            className='form-control rounded-0' name='email'
-                            onChange={handleInput}/>
-                            {errors.email &&<span className='text-danger'>{errors.email} </span>}
-                        </div>
-                        <div className='mb-3'>
-                            <label htmlFor='password'> <strong>Password</strong></label>
-                            <input type="password" placeholder='Enter your password' 
-                            className='form-control rounded-0' name='password'
-                            onChange={handleInput}/>
-                            {errors.password &&<span className='text-danger'>{errors.password} </span>}
-                        </div>
-                        <button type='submit' className='btn-success bg-primary w-100 p-2 text-white mt-2 mb-2 rounded-0'>Login</button>
-                        <Link to="/forgotpass" className='text-primary'>Forgot password?</Link>
-                        <div className='d-flex'>
-                          <p className='mt-2'>Don't have an account?</p>
-                          <Link to="/register" className='text-primary mt-2'> Register here</Link>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    </div>
-    
-  )
-}
+    <section className="banner_section p-5 lg:px-0">
+      <div className="w-full max-w-[570px] mx-auto rounded-lg shadow-lg md:p-10">
+        <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10">
+          Hello! <span className="text-primaryColor">Welcome</span> Back 🎉🎉
+        </h3>
 
-export default Login
+        <form onSubmit={submitHandle} className="py-4 lg:py-8">
+          <div className="mb-5">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="w-full border-b border-solid border-slate-300 px-3 py-3 
+              focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor
+              placeholder:text-textColor rounded-md cursor-pointer"
+              required
+            />
+            {error.email && <span className="text-red-600">{error.email}</span>}
+          </div>
+          <div className="mb-5">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="w-full border-b border-solid border-slate-300 px-3 py-3 
+              focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor
+              placeholder:text-textColor rounded-md cursor-pointer"
+              required
+            />
+          </div>
+          <div className="mt-7">
+            <button
+              type="submit"
+              className="py-[10px] px-4 w-full bg-primaryColor text-white leading-[30px] text-[18px] rounded-lg"
+            >
+              {loading ? <HashLoader size={30} color='#fff'/> : 'Login'}
+            </button>
+          </div>
+
+          <div className="mt-3">
+            <Link
+              to="/forgotpass"
+              className="ml-2 text-primaryColor cursor-pointer mt- text-[18px]"
+            >
+              Forgotten password?
+            </Link>
+          </div>
+
+          <p className="text-[18px] mt-5 text-center text-textColor">
+            Don&apos;t have an account?
+            <Link
+              to="/register"
+              className="ml-2 text-primaryColor cursor-pointer"
+            >
+              Register
+            </Link>
+          </p>
+        </form>
+      </div>
+    </section>
+  );
+};
+
+export default Login;
