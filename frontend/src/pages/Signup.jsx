@@ -1,67 +1,67 @@
-import { Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
+import { toast } from "react-toastify";
+import { BASE_URL } from "../../config";
 import signupImg from "../assets/images/signup01.png";
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
-import { BASE_URL } from "../../config"
-import {toast} from "react-toastify"; 
-import HashLoader from 'react-spinners/HashLoader'
 
 const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState(""); 
-  const [loading, setLoading]  = useState(false); 
+  const [previewURL, setPreviewURL] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [formData, setFormData] = useState ({
+  const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     photo: selectedFile,
     password: "",
-    gender: ""
+    gender: "",
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleFileInputChange = async (event) => {
-    const file = event.target.files[0]
-    const data = await uploadImageToCloudinary(file)
-    
-    setPreviewURL(data.url); 
-    setSelectedFile(data.url); 
-    setFormData({ ... formData, photo: data.url }); 
-  }
+    const file = event.target.files[0];
+    const data = await uploadImageToCloudinary(file);
 
-  const submitHandle = async event => {
-    event.preventDefault()
-    setLoading(true)
+    setPreviewURL(data.url);
+    setSelectedFile(data.url);
+    setFormData({ ...formData, photo: data.url });
+  };
+
+  const submitHandle = async (event) => {
+    event.preventDefault();
+    setLoading(true);
 
     try {
-      const res = await fetch (`${BASE_URL}/auth/register`, {
-        method: 'post', 
+      const res = await fetch(`${BASE_URL}/auth/register`, {
+        method: "post",
         headers: {
-          'Content-Type':'application/json'
-        }, 
-        body: JSON.stringify(formData)
-      })
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      const {message} = await res.json()
+      const { message } = await res.json();
 
-      if(!res.ok) {
-        throw new Error(message)
+      if (!res.ok) {
+        throw new Error(message);
       }
 
-      setLoading(false)
-      toast.success(message)
-      navigate('/login')
-      console.log(message)
+      setLoading(false);
+      toast.success(message);
+      navigate("/login");
+      console.log(message);
     } catch (error) {
-      toast.error(error.message)
-      setLoading(false)
+      toast.error(error.message);
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <section className="px-5 xl:px-0 ">
@@ -69,7 +69,11 @@ const Signup = () => {
         <div className="rounded bg-light-100 grid grid-cols-1 lg:grid-cols-2">
           <div className="lg:block rounded-l-lg">
             <figure className=" rounded-l-lg">
-              <img src={signupImg} alt="" className="w-[90%] h-[650px] rounded-l-lg" />
+              <img
+                src={signupImg}
+                alt=""
+                className="w-[90%] h-[650px] rounded-l-lg"
+              />
             </figure>
           </div>
 
@@ -120,15 +124,21 @@ const Signup = () => {
                   required
                 />
               </div>
- 
+
               <div className="flex justify-between items-center">
                 <div className="mb-4 flex items-center gap-2">
-                  {selectedFile && <figure
-                    className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor 
+                  {selectedFile && (
+                    <figure
+                      className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor 
                   flex items-center justify-center md:ml-5"
-                  >
-                    <img src={previewURL} alt="" className="w-full rounded-full" />
-                  </figure>}
+                    >
+                      <img
+                        src={previewURL}
+                        alt=""
+                        className="w-full rounded-full"
+                      />
+                    </figure>
+                  )}
                   <div className="relative w-[130px] h-[50px]">
                     <input
                       type="file"
@@ -151,11 +161,13 @@ const Signup = () => {
 
                 <div className="mt-[-20px]">
                   <label className="text-headingColor font-bold text-[16px] leading-7">
-                    Gender: 
-                    <select name="gender" 
+                    Gender:
+                    <select
+                      name="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
-                      className="text-textColor font-semibold text-[15px] leading-7 px-3 py-3 focus:outline-none">
+                      className="text-textColor font-semibold text-[15px] leading-7 px-3 py-3 focus:outline-none"
+                    >
                       <option value="select">Select</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -171,7 +183,11 @@ const Signup = () => {
                   type="submit"
                   className="py-[10px] px-4 w-full bg-primaryColor text-white leading-[30px] text-[18px] rounded-lg md:ml-5 ms:ml-5"
                 >
-                  {loading ? <HashLoader size={35} color="#ffffff" /> : 'Register'}
+                  {loading ? (
+                    <HashLoader size={35} color="#ffffff" />
+                  ) : (
+                    "Register"
+                  )}
                 </button>
               </div>
 
