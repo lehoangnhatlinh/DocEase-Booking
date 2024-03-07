@@ -46,33 +46,34 @@ const Profile = ({ user }) => {
     setFormData({ ...formData, photo: data.url });
   };
   const submitHandler = async (event) => {
-    event.prevenDefault();
+    event.preventDefault(); // Fix the typo here
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/users/${user._id}`, {
-        method: "put",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
+        const res = await fetch(`${BASE_URL}/users/${user._id}`, {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
+        });
 
-      const { message } = await res.json();
+        const { message } = await res.json();
 
-      if (!res.ok) {
-        throw new Error(message);
-      }
+        if (!res.ok) {
+            throw new Error(message);
+        }
 
-      setLoading(false);
-      toast.success(message);
-      navigate("/users/profile/me");
+        setLoading(false);
+        toast.success(message);
+        navigate("/users/profile/me");
+
     } catch (err) {
-      toast.error(err.message);
-      setLoading(false);
+        toast.error(err.message);
+        setLoading(false);
     }
-  };
+};
   return (
     <div className="mt-10">
       <form className="py-4 md:py-8" onSubmit={submitHandler}>
@@ -80,8 +81,8 @@ const Profile = ({ user }) => {
           <input
             type="text"
             placeholder="Full Name"
-            name="fullName"
-            value={formData.fullName}
+            name="name"
+            value={formData.name}
             onChange={handleInputChange}
             className="w-full border-b border-solid border-slate-300 px-3 py-3 md:ml-5
                   focus:outline-none focus:border-b-primaryColor text-[18px] leading-7 text-headingColor
@@ -143,7 +144,7 @@ const Profile = ({ user }) => {
                 <img
                   src={formData.photo}
                   alt=""
-                  className="w-full rounded-full"
+                  className="w-full rounded-full w-[60px] h-[60px]"
                 />
               </figure>
             )}
@@ -163,8 +164,8 @@ const Profile = ({ user }) => {
                 className="absolute top-0 left-0 w-full h-full flex items-center px-3 py-[0.375rem] text-[16px] leading-6 
                     overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
               >
-                Upload photo
-                {/* {selectedFile ? selectedFile.name :"Upload Photo"} */}
+                {/* Upload photo */}
+                {selectedFile ? selectedFile.name :"Upload Photo"}
               </label>
             </div>
           </div>

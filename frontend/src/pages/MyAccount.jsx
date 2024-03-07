@@ -39,8 +39,8 @@ const MyAccount = () => {
             <div className="flex items-center justify-center">
               <figure className="w-[100px] h-[100px] rounded-full border-2 border-solid border-primaryColor">
                 <img
-                  src={userImg}
-                // src={userData.photo}
+                  // src={userImg}
+                  src={userData.photo}
                   alt=""
                   className="w-full h-full rounded-full m;-1"
                 />
@@ -49,18 +49,18 @@ const MyAccount = () => {
 
             <div className="text-center mt-4">
               <h3 className="text-[18px] leading-[30px] text-headingColor font-bold ">
-                Bich Lien
-                {/* {userData.name} */}
+                {/* Bich Lien */}
+                {userData.name}
               </h3>
               <p className="text-textColor text-[15px] leading-6 font-medium">
-                example@gmail.com
-                {/* {userData.email} */}
+                {/* example@gmail.com */}
+                {userData.email}
               </p>
               <p className="text-textColor text-[15px] leading-6 font-medium">
                 Blood Type:
                 <span className="ml-2 text-headingColor text-[22px] leading-8">
-                  o-
-                  {/* {userData.bloodType} */}
+                  {/* o- */}
+                  {userData.bloodType}
                 </span>
               </p>
             </div>

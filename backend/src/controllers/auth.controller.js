@@ -46,42 +46,41 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-
-    const {email} = req.body; 
+    const { email } = req.body;
 
     try {
-        let user = null; 
+        let user = null;
 
-        const patient = await User.findOne({email}); 
-        const doctor = await Doctor.findOne({email})
+        const patient = await User.findOne({ email });
+        const doctor = await Doctor.findOne({ email });
 
-        if(patient) {
-            user = patient
+        if (patient) {
+            user = patient;
         }
 
-        if(doctor) {
-            user = doctor
+        if (doctor) {
+            user = doctor;
         }
 
-        if(!user) {
-            return res.status(404).json({message: 'User not found'}); 
-        }
-        
-        //Compare password
-        const isPasswordMatch = await bcrypt.compare(req.body.password, user.password)
-        console.log(isPasswordMatch)
-        if(!isPasswordMatch) {
-            return res.status(400).json({status: false, message: 'Invalid email or password'});
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        //get token
-        const token = generateToken(user); 
-        
-        const {password, role, appointments, ...rest} = user._doc;
-        res.status(200).json({status: true, message: "Login successfully", token, data: {... rest}});
+        // Compare password
+        const isPasswordMatch = await bcrypt.compare(req.body.password, user.password);
+
+        if (!isPasswordMatch) {
+            return res.status(400).json({ status: false, message: 'Invalid email or password' });
+        }
+
+        // Get token
+        const token = generateToken(user);
+
+        const { password, role, appointments, ...rest } = user._doc;
+        return res.status(200).json({ status: true, message: "Login successfully", token, data: { ...rest } });
 
     } catch (error) {
-        console.log(error); 
-        return res.status(500).json({success: false, message: "Internal server error"});
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Internal server error", error: error.message });
     }
-}
+};
