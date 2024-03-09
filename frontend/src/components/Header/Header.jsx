@@ -24,6 +24,11 @@ const navLink = [
     path: '/aboutus',
     display: 'About'
   },
+
+  {
+    path: '/contact',
+    display: 'Contact'
+  },
 ]
 
 const Header = () => {
@@ -83,11 +88,11 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {token && user ? (
                 <div>
-                  <Link to={`${role === 'doctor' ? '/doctor/profile/me' : 'user/profile/me' }`}>
-                    <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                  <Link to={`${role === 'doctor' ? '/doctor/profile/me' : 'users/profile/me' }`}>
+                    <figure className="w-[45px] h-[45px] rounded-full cursor-pointer">
                       <img
                         src={user?.photo}
-                        className="w-full rounded-full"
+                        className="w-full rounded-full w-[45px] h-[45px] "
                         alt=""
                       />
                     </figure>

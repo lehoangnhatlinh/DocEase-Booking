@@ -9,6 +9,8 @@ import Profile from "../pages/Profile";
 import ResetPassword from "../pages/ResetPassword";
 import Services from "../pages/Services";
 import Signup from "../pages/Signup";
+import MyAccount from "../pages/MyAccount"
+import Contact from "../pages/Contact"
 
 import { Route, Routes } from "react-router-dom";
 
@@ -25,8 +27,10 @@ const Routers = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/contact" element={<Contact/>}/>
       <Route path="/reset" element={<ResetPassword/>} />
       <Route path="/otp" element={<OTPEmail/>}/>
+      <Route path="/users/profile/me" element={<MyAccount />} />
     </Routes>
   );
 };

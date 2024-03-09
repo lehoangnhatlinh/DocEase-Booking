@@ -12,7 +12,7 @@ const bookingSchema = new Schema ({
         require: true
     }, 
     ticketPrice: {
-        type: Stirng, 
+        type: String, 
         require: true
     }, 
     appointment: {
