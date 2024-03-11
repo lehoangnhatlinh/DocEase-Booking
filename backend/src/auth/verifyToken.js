@@ -1,55 +1,61 @@
-import jwt from 'jsonwebtoken'; 
-import Doctor from '../models/Doctor.model.js';
-import User from '../models/User.model.js';
+import jwt from "jsonwebtoken";
+import Doctor from "../models/Doctor.model.js";
+import User from "../models/User.model.js";
 
 export const authenticate = async (req, res, next) => {
+  //get token from header
+  const authToken = req.headers.authorization;
 
-    //get token from header
-    const authToken = req.headers.authorization; 
+  if (!authToken || !authToken.startsWith("Bearer")) {
+    return res
+      .status(401)
+      .json({ success: false, message: "No token, authorization denied" });
+  }
 
-    if(!authToken || !authToken.startsWith('Bearer')) {
-        return res.status(401).json({success: false, message: 'No token, authorization denied'});
+  try {
+    const token = authToken.split(" ")[1];
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.userId = decoded.id;
+    req.role = decoded.role;
+    next();
+  } catch (error) {
+    if (error.name === "TokenExperiredError") {
+      return res.status(401).json({ message: "Token is expired" });
     }
 
-    try {
-        const token = authToken.split(' ')[1]; 
-        
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY); 
-        req.userId = decoded.id
-        req.role = decoded.role
-        next();
-    } catch (error) {
-        if(error.name === 'TokenExperiredError') {
-            return res.status(401).json({message: 'Token is expired'})
-        }
+    return res.status(401).json({ success: false, message: "Invalid token" });
+  }
+};
 
-        return res.status(401).json({ success: false, message: 'Invalid token'})
-    }
-}
+export const restrict = (roles) => async (req, res, next) => {
+  const userId = req.userId;
 
-export const restrict = roles => async (req, res, next) => {
-    const userId = req.userId; 
+  let user;
 
-    let user; 
+  const patient = await User.findById(userId);
+  const doctor = await Doctor.findById(userId);
 
-    const patient = await User.findById(userId); 
-    const doctor = await Doctor.findById(userId);
+  if (patient) {
+    user = patient;
+  }
 
-    if(patient) {
-        user = patient;
-    }
+  if (doctor) {
+    user = doctor;
+  }
 
-    if(doctor) {
-        user = doctor;
-    }
+  // Check if 'user' is defined and has the 'role' property
+  if (!user || !user.role) {
+    return res.status(401).json({ success: false, message: "User not found" });
+  }
 
-    //Check if 'user' is defined and has the 'role' property
-    if (!user || !user.role) {
-        return res.status(401).json({ success: false, message: 'User not found' });
-    }
+  //Check if 'user' is defined and has the 'role' property
+  if (!user || !user.role) {
+    return res.status(401).json({ success: false, message: "User not found" });
+  }
 
-    // if(!roles.includes(user.role)) {
-    //     return res.status(401).json({success: false, message: 'You\'re not authorized'}); 
-    // }
-    next(); 
-}
+  // if(!roles.includes(user.role)) {
+  //     return res.status(401).json({success: false, message: 'You\'re not authorized'});
+  // }
+  next();
+};
