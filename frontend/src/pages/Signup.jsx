@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { BASE_URL } from "../../config";
 import signupImg from "../assets/images/signup01.png";
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
+import { BASE_URL } from "../../config";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -135,7 +137,7 @@ const Signup = () => {
                       <img
                         src={previewURL}
                         alt=""
-                        className="w-full rounded-full"
+                        className="w-full rounded-full w-[60px] h-[60px]"
                       />
                     </figure>
                   )}

@@ -9,8 +9,14 @@ import Profile from "../pages/Profile";
 import ResetPassword from "../pages/ResetPassword";
 import Services from "../pages/Services";
 import Signup from "../pages/Signup";
+import MyAccount from "../pages/MyAccount"
+import Contact from "../pages/Contact"
 
+import Dashboard from "../Dashboard/doctor-account/Dashboard";
 import { Route, Routes } from "react-router-dom";
+// import ProtectedRoute from "./ProtectedRoute";
+import CheckoutSuccess from "../pages/CheckoutSuccess";
+
 
 const Routers = () => {
   return (
@@ -25,8 +31,14 @@ const Routers = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/contact" element={<Contact/>}/>
       <Route path="/reset" element={<ResetPassword/>} />
       <Route path="/otp" element={<OTPEmail/>}/>
+      {/* <ProtectedRoute></ProtectedRoute> */}
+      <Route path ="/users/profile/me" element={<MyAccount/>}/>
+      <Route path ="/doctors/profile/me" element={<Dashboard/>}/>
+      <Route path="/checkout-success" element={<CheckoutSuccess />} />
+
     </Routes>
   );
 };
