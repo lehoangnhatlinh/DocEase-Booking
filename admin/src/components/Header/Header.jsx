@@ -4,27 +4,27 @@ import { NavLink, Link } from 'react-router-dom'
 import { FaBars } from 'react-icons/fa';
 import { authContext } from '../../context/AuthContext.jsx';
 
-const navLink = [
-  {
-    path: '/home',
-    display: 'Home'
-  },
+// const navLink = [
+//   {
+//     path: '/home',
+//     display: 'Home'
+//   },
 
-  {
-    path: '/doctors',
-    display: 'Find a Doctor'
-  },
+//   {
+//     path: '/doctors',
+//     display: 'Find a Doctor'
+//   },
 
-  {
-    path: '/services',
-    display: 'Services'
-  },
+//   {
+//     path: '/services',
+//     display: 'Services'
+//   },
 
-  {
-    path: '/aboutus',
-    display: 'About'
-  },
-]
+//   {
+//     path: '/aboutus',
+//     display: 'About'
+//   },
+// ]
 
 const Header = () => {
 
@@ -60,7 +60,7 @@ const Header = () => {
             </div>
 
             {/* ========= menu  ========= */}
-            <div className="navigation" ref={menuRef} onClick={toggleMenu}>
+            {/* <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <ul className="menu flex items-center gap-[2.7rem]">
                 {navLink.map((items, index) => (
                   <li key={index}>
@@ -77,7 +77,7 @@ const Header = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
 
             {/* ========= nav right  ========= */}
             <div className="flex items-center gap-4">
