@@ -15,10 +15,10 @@ const bookingSchema = new Schema ({
         type: String, 
         require: true
     }, 
-    appointment: {
-        type: Date, 
-        require: true
-    }, 
+    // appointment: {
+    //     type: Date, 
+    //     require: true
+    // }, 
     status: {
         type: String, 
         enum: ['Pending', 'Approve', 'Cancel'], 
