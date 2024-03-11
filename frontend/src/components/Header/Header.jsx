@@ -1,58 +1,60 @@
-import {useEffect, useRef, useContext} from 'react'
-import logo from '../../assets/images/logo4.png'
-import { NavLink, Link } from 'react-router-dom'
-import { FaBars } from 'react-icons/fa';
-import { authContext } from '../../context/AuthContext.jsx';
+import { useContext, useEffect, useRef } from "react";
+import { FaBars } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../../assets/images/logo4.png";
+import { authContext } from "../../context/AuthContext.jsx";
 
 const navLink = [
   {
-    path: '/home',
-    display: 'Home'
+    path: "/home",
+    display: "Home",
   },
 
   {
-    path: '/doctors',
-    display: 'Find a Doctor'
+    path: "/doctors",
+    display: "Find a Doctor",
   },
 
   {
-    path: '/services',
-    display: 'Services'
+    path: "/services",
+    display: "Services",
   },
 
   {
-    path: '/aboutus',
-    display: 'About'
+    path: "/aboutus",
+    display: "About",
   },
 
   {
-    path: '/contact',
-    display: 'Contact'
+    path: "/contact",
+    display: "Contact",
   },
-]
+];
 
 const Header = () => {
-
   const headerRef = useRef(null);
-  const menuRef = useRef(null); 
-  const {user, role, token} = useContext(authContext); 
+  const menuRef = useRef(null);
+  const { user, role, token } = useContext(authContext);
 
   const handleStickyHeader = () => {
-    window.addEventListener('scroll', () => {
-      if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        headerRef.current.classList.add('sticky_header')
-      } else {  
-        headerRef.current.classList.remove('sticky_header')
+    window.addEventListener("scroll", () => {
+      if (
+        document.body.scrollTop > 80 ||
+        document.documentElement.scrollTop > 80
+      ) {
+        headerRef.current.classList.add("sticky_header");
+      } else {
+        headerRef.current.classList.remove("sticky_header");
       }
-    })
-  }
+    });
+  };
 
-  useEffect (() => {
-    handleStickyHeader()
-    return() => window.removeEventListener('scroll', handleStickyHeader)
-  }, [])
+  useEffect(() => {
+    handleStickyHeader();
+    return () => window.removeEventListener("scroll", handleStickyHeader);
+  }, []);
 
-  const toggleMenu = () => menuRef.current.classList.toggle('show_menu')
+  const toggleMenu = () => menuRef.current.classList.toggle("show_menu");
 
   return (
     <header>
@@ -88,7 +90,13 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {token && user ? (
                 <div>
-                  <Link to={`${role === 'doctor' ? '/doctor/profile/me' : 'users/profile/me' }`}>
+                  <Link
+                    to={`${
+                      role === "doctor"
+                        ? "/doctors/profile/me"
+                        : "users/profile/me"
+                    }`}
+                  >
                     <figure className="w-[45px] h-[45px] rounded-full cursor-pointer">
                       <img
                         src={user?.photo}
@@ -117,6 +125,6 @@ const Header = () => {
       </div>
     </header>
   );
-}
+};
 
-export default Header
+export default Header;
