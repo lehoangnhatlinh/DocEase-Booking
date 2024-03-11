@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import Doctor from "../models/Doctor.model.js";
 
 export const getAllDoctor = async (req, res) => {
@@ -66,33 +65,13 @@ export const getDoctorById = async (req, res) => {
 // }
 
 export const createDoctor = async (req, res) => {
-  const { email, password, name, gender, role } = req.body;
+  const { email, password, name } = req.body;
 
   try {
-    if (req.role !== "admin") {
-      return res
-        .status(403)
-        .json({ success: false, message: "Unauthorized to create doctor" });
-    }
+    // Tạo tài khoản bác sĩ mới
+    const newDoctor = await Doctor.create({ email, password, name });
 
-    const userRole = role || "doctor";
-    const existingDoctor = await Doctor.findOne({ email });
-
-    //check if user exist
-    if (existingDoctor) {
-      return res.status(400).json({ message: "User already exist" });
-    }
-
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    const newDoctor = await Doctor.create({
-      email,
-      password: hashedPassword,
-      name,
-      gender,
-      role: userRole,
-    });
+    // Trả về thông tin tài khoản bác sĩ đã tạo
     res
       .status(200)
       .json({ success: true, message: "Created doctor", data: newDoctor });
