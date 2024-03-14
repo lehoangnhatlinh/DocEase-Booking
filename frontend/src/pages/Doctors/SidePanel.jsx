@@ -1,4 +1,4 @@
-import { BASE_URL, token } from "./../../config";
+import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
 // eslint-disable-next-line react/prop-types
 const SidePanel = ({ doctorId }) => {

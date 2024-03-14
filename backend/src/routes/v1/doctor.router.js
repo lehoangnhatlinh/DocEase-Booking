@@ -4,6 +4,7 @@ import {
   deleteDoctor,
   getAllDoctor,
   getDoctorById,
+  getDoctorProfile,
   updateDoctor,
 } from "../../controllers/doctor.controller.js";
 
@@ -17,4 +18,5 @@ router.get("/:id", getDoctorById);
 router.put("/:id", authenticate, restrict(["doctor"]), updateDoctor);
 router.delete("/:id", authenticate, restrict(["doctor"]), deleteDoctor);
 
+router.get('/profile/me', authenticate, restrict(['doctor']), getDoctorProfile)
 export default router;
