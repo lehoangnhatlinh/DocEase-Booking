@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
+import { toast } from "react-toastify";
+import { BASE_URL } from "../../config";
 import signupImg from "../assets/images/signup01.png";
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
-import { BASE_URL } from "../../config";
-import { toast } from "react-toastify";
-import HashLoader from "react-spinners/HashLoader";
 
 const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
