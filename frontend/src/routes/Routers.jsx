@@ -37,6 +37,8 @@ const Routers = () => {
       {/* <ProtectedRoute></ProtectedRoute> */}
       <Route path ="/users/profile/me" element={<MyAccount/>}/>
       <Route path ="/doctors/profile/me" element={<Dashboard/>}/>
+
+      {/* <Route path ="/doctors/profile/me" element={<ProtectedRoute allowedRoles={['doctor']}><Dashboard/></ProtectedRoute>}/> */}
       <Route path="/checkout-success" element={<CheckoutSuccess />} />
 
     </Routes>

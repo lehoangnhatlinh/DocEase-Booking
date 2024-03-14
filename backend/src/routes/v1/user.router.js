@@ -2,6 +2,8 @@ import express from "express";
 import {getAllUser, getUserById, updateUser, deleteUser, getUserProfile, getMyAppointments} from '../../controllers/user.controller.js'; 
 import {authenticate, restrict} from '../../auth/verifyToken.js';
 
+
+
 const router = express.Router();
 
 router.get('/', authenticate, restrict(['admin', 'doctor', 'patient']),  getAllUser); 
