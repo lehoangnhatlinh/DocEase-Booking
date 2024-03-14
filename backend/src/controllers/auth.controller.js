@@ -61,6 +61,7 @@ export const login = async (req, res) => {
     if (patient) {
       user = patient;
     }
+}
 
     if (doctor) {
       user = doctor;

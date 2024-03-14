@@ -47,9 +47,8 @@ const Profile = ({ doctorData }) => {
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
     const data = await uploadImageToCloudinary(file);
-    
-    setSelectedFile(data.url); 
-    setFormData({...formData, photo:data?.url}); 
+    console.log(data);
+    setFormData({...formData, photo:data?.url})
   };
 
   const updateProfileHandler = async (e) => {
@@ -108,8 +107,8 @@ const Profile = ({ doctorData }) => {
     addItem("qualifications", {
       startingDate: "",
       endingDate: "",
-      degree: "PHD",
-      university: "Dhaka Medical College",
+      degree: "",
+      university: "",
     });
   };
 
@@ -127,8 +126,8 @@ const Profile = ({ doctorData }) => {
     addItem("experiences", {
       startingDate: "",
       endingDate: "",
-      position: "Senior Surgeon",
-      hospital: "Dhaka Medical",
+      position: "",
+      hospital: "",
     });
   };
 
@@ -512,32 +511,38 @@ const Profile = ({ doctorData }) => {
           ></textarea>
         </div>
         <div className="mb-5 flex items-center gap-3">
-          {formData.photo && (
-            <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
-              <img
-                src={formData.photo}
-                alt=""
-                className="w-full rounded-full"
-              ></img>
-            </figure>
-          )}
-          <div className="relative w-[130px] h-[50px]">
-            <input
-              type="file"
-              name="photo"
-              id="customFile"
-              onChange={handleFileInputChange}
-              accept=".jpg, .png"
-              className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-            ></input>
-            <label
-              htmlFor="customFile"
-              className="absolute top-0 left-0 w-full h-full flex items-center px-[0.75rem] py-[0.375rem] text-[15px] leading-6 overflow-hidden bg-[#0066ff46] text-headingColor
-            font-semibold rounded-lg truncate cursor-pointer"
-            >
-              Upload Photo
-            </label>
-          </div>
+        {formData.photo && (
+              <figure
+                className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor 
+                    flex items-center justify-center md:ml-5"
+              >
+                <img
+                  src={formData.photo}
+                  alt=""
+                  className="w-full rounded-full w-[60px] h-[60px]"
+                />
+              </figure>
+            )}
+
+            <div className="relative w-[130px] h-[50px]">
+              <input
+                type="file"
+                name="photo"
+                id="customFile"
+                onChange={handleFileInputChange}
+                accept=".jpg, .png"
+                className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+              />
+
+              <label
+                htmlFor="customFile"
+                className="absolute top-0 left-0 w-full h-full flex items-center px-3 py-[0.375rem] text-[16px] leading-6 
+                    overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
+              >
+                Upload photo
+                {/* {selectedFile ? selectedFile.name :"Upload Photo"} */}
+              </label>
+            </div>
         </div>
         <div className="mt-7">
           <button
@@ -550,13 +555,6 @@ const Profile = ({ doctorData }) => {
             Update Profile
           </button>
         </div>
-        {/* <div className="mb-5">
-        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Password
-      </label>
-      <input  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************"></input>
-      <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you would like</p>
-        </div> */}
       </form>
     </div>
   );
