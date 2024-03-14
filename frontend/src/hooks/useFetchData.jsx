@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {token} from '../../config'
 // import {toast} from 'react-toastify'
-const useFetchData = url => {
+const useFetchData = (url) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -28,7 +28,7 @@ const useFetchData = url => {
             }
         }
         fetchData()
-    },{url})
+    },[url])
   return {
     data, loading, error
   }

@@ -2,7 +2,7 @@ import { useState } from "react";
 // import Loading from "../../components/Loader/Loading";
 // import Error from "../../components/Error/Error";
 import useGetProfile from "./../../hooks/useFetchData";
-import { BASE_URL } from "../../config";
+import { BASE_URL } from "../../../config"
 import Tabs from "./Tabs";
 import userImg from "../../assets/images/doctor-img02.png";
 import starIcon from "../../assets/images/Star.png";
