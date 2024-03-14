@@ -5,6 +5,9 @@ import uploadImageToCloudinary from "../../utils/uploadCloudinary";
 import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
 const Profile = ({ doctorData }) => {
+  
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -52,9 +55,9 @@ const Profile = ({ doctorData }) => {
     e.preventDefault();
     try {
       const res = await fetch(`${BASE_URL}/doctors/${doctorData._id}`, {
-        method: "PUT",
+        method: "put",
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
@@ -160,7 +163,7 @@ const Profile = ({ doctorData }) => {
         Profile Infomation
       </h2>
 
-      <form>
+      <form >
         <div className="mb-5">
           <label className="uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Name*
@@ -544,6 +547,7 @@ const Profile = ({ doctorData }) => {
         <div className="mt-7">
           <button
             type="submit"
+            id="customFile"
             onClick={updateProfileHandler}
             className="bg-primaryColor text-white text-[18px] leading-[30px] w-full py-3 px-4
           rounded-lg"

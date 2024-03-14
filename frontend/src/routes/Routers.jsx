@@ -11,10 +11,9 @@ import Services from "../pages/Services";
 import Signup from "../pages/Signup";
 import MyAccount from "../pages/MyAccount"
 import Contact from "../pages/Contact"
-
 import Dashboard from "../Dashboard/doctor-account/Dashboard";
 import { Route, Routes } from "react-router-dom";
-// import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 import CheckoutSuccess from "../pages/CheckoutSuccess";
 
 
@@ -34,13 +33,9 @@ const Routers = () => {
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/reset" element={<ResetPassword/>} />
       <Route path="/otp" element={<OTPEmail/>}/>
-      {/* <ProtectedRoute></ProtectedRoute> */}
-      <Route path ="/users/profile/me" element={<MyAccount/>}/>
-      <Route path ="/doctors/profile/me" element={<Dashboard/>}/>
-
-      {/* <Route path ="/doctors/profile/me" element={<ProtectedRoute allowedRoles={['doctor']}><Dashboard/></ProtectedRoute>}/> */}
+      <Route path="/users/profile/me" element={ <ProtectedRoute allowedRoles={['patient']}> <MyAccount/> </ProtectedRoute> } />
+      <Route path="/doctors/profile/me" element={ <ProtectedRoute allowedRoles={['doctor']}> <Dashboard/>  </ProtectedRoute> }/>
       <Route path="/checkout-success" element={<CheckoutSuccess />} />
-
     </Routes>
   );
 };

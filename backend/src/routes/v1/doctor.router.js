@@ -7,7 +7,6 @@ import {
   getDoctorProfile,
   updateDoctor,
 } from "../../controllers/doctor.controller.js";
-
 import reviewRouter from "./review.router.js";
 const router = express.Router();
 

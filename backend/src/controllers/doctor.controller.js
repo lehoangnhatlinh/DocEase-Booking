@@ -168,6 +168,7 @@ export const updateDoctor = async (req, res) => {
       data: updateDoctor,
     });
     return updateDoctor;
+    console.log(updateDoctor)
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to update" });
   }
