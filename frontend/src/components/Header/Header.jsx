@@ -88,7 +88,11 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {token && user ? (
                 <div>
+<<<<<<< Updated upstream
                   <Link to={`${role === 'doctor' ? '/doctor/profile/me' : 'users/profile/me' }`}>
+=======
+                  <Link to={`${role === 'doctor' ? '/doctors/profile/me' : 'users/profile/me' }`}>
+>>>>>>> Stashed changes
                     <figure className="w-[45px] h-[45px] rounded-full cursor-pointer">
                       <img
                         src={user?.photo}
