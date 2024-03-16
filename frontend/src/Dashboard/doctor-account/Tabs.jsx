@@ -21,7 +21,7 @@ const Tabs = ({ tab, setTab }) => {
         <button
           onClick={() => setTab("overview")}
           className={`${
-            tab == "overview"
+            tab === "overview"
               ? "bg-indigo-100 text-primaryColor"
               : "bg-transparent text-headingColor"
           } w-full btn mt-0 rounded-md`}
@@ -31,7 +31,7 @@ const Tabs = ({ tab, setTab }) => {
         <button
           onClick={() => setTab("appointments")}
           className={`${
-            tab == "appointments"
+            tab === "appointments"
               ? "bg-indigo-100 text-primaryColor"
               : "bg-transparent text-headingColor"
           } w-full btn mt-0 rounded-md`}
@@ -41,7 +41,7 @@ const Tabs = ({ tab, setTab }) => {
         <button
           onClick={() => setTab("settings")}
           className={`${
-            tab == "settings"
+            tab === "settings"
               ? "bg-indigo-100 text-primaryColor"
               : "bg-transparent text-headingColor"
           } w-full btn mt-0 rounded-md`}

@@ -15,7 +15,7 @@ const Profile = ({ user }) => {
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     photo: null,
     password: "",
@@ -108,6 +108,7 @@ const Profile = ({ user }) => {
             // required
             aria-readonly
             readOnly
+            disabled
           />
         </div>
 
@@ -181,6 +182,7 @@ const Profile = ({ user }) => {
                 name="gender"
                 className="text-textColor font-semibold text-[15px] leading-7 px-3 py-3 focus:outline-none"
               >
+                <option value="">{formData.gender}</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>

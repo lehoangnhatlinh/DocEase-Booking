@@ -124,16 +124,39 @@ export const updateDoctor = async (req, res) => {
 };
 
 export const deleteDoctor = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const deleteDoctor = await Doctor.findByIdAndDelete(id);
-    res.status(200).json({
-      success: true,
-      message: "Successfully deleted",
-      data: deleteDoctor,
-    });
-    return deleteDoctor;
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to delete" });
-  }
-};
+    const id = req.params.id;
+    try {
+        const deleteDoctor = await Doctor.findByIdAndDelete(id);
+        res.status(200).json({success: true, message: 'Successfully deleted', data: deleteDoctor});
+        return deleteDoctor;
+    } catch (error) {
+        res.status(500).json({success: false, message: 'Failed to delete'});
+    }
+}
+
+export const getDoctorProfile = async (req, res) => {
+    const doctorId = req.userId;
+    try {
+      console.log(doctorId)
+      const doctor = await Doctor.findById(doctorId);
+      console.log(doctor)
+      if (!doctor) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Doctor not found" });
+      }
+      const { password, ...rest } = doctor._doc;
+      // const appointments = await Booking.find({doctor:doctorId});
+      res
+        .status(200)
+        .json({
+          success: true,
+          message: "Profile info is getting",
+          data: { ...rest },
+        });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ success: false, message: "Something went wrong, cannot get" });
+    }
+  };

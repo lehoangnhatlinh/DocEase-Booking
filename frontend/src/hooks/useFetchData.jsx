@@ -12,8 +12,10 @@ const useFetchData = url => {
                 const res = await fetch(url, {
                     headers: {Authorization: ` Bearer ${token}`}
                 })
-    
+                    console.log(token)
                 const result = await res.json()
+                
+                console.log("result",result);
     
                 if(!res.ok){
                     throw new Error(result.message + 'fail')
@@ -28,10 +30,12 @@ const useFetchData = url => {
             }
         }
         fetchData()
-    },{url})
+    },[url])
   return {
     data, loading, error
+  
   }
+ 
 }
 
 export default useFetchData

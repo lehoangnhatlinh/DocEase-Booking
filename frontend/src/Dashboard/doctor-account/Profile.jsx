@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 // import { uploadImageToCloudinary } from "./../../utils/uploadCloudinary";
-import { BASE_URL, token } from "./../../config";
+import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
 const Profile = ({ doctorData }) => {
   const [formData, setFormData] = useState({
@@ -36,12 +36,12 @@ const Profile = ({ doctorData }) => {
       about: doctorData?.about,
       photo: doctorData?.photo,
     })
-  })
+  },[doctorData])
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileInputChange = async (e) => {
+  const handleFileInputChange = async () => {
     // const file = event.target.files[0];
     // const data = await uploadImageToCloudinary(file);
     // console.log(data);
