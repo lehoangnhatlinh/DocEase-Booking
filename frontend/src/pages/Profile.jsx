@@ -103,8 +103,8 @@ const Profile = ({ user }) => {
             value={formData.email}
             onChange={handleInputChange}
             className="w-full border-b border-solid border-slate-300 px-3 py-3  md:ml-5 
-                  focus:outline-none focus:border-b-primaryColor text-[18px] leading-7 text-headingColor
-                placeholder:text-textColor rounded-md cursor-pointer"
+                  focus:outline-none text-[18px] leading-7 text-headingColor
+                placeholder:text-textColor rounded-md cursor-pointer bg-slate-100"
             // required
             aria-readonly
             readOnly
