@@ -14,7 +14,7 @@ import Contact from "../pages/Contact";
 
 import Dashboard from "../Dashboard/doctor-account/Dashboard";
 import { Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import CheckoutSuccess from "../pages/CheckoutSuccess";
 
 const Routers = () => {
