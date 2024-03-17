@@ -10,6 +10,9 @@ import {
   updateUser,
 } from "../../controllers/user.controller.js";
 
+
+
+
 const router = express.Router();
 
 router.get("/", authenticate, restrict(["admin"]), getAllUser);
