@@ -20,9 +20,7 @@ const MyAccount = () => {
     loading,
     error,
   } = useGetProfile(`${BASE_URL}/users/profile/me`);
-
-  
-console.log(data);
+//console.log(data);
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     console.log("data logout",data)
@@ -32,9 +30,8 @@ console.log(data);
   return (
     <div className="max-w-[1170px] px-5 mx-auto">
       {loading && !error && <Loading />}
-
       {error && !loading && <Error errMessage={error} />}
-
+      
       {!loading && !error && (
         <div className="row">
           {/* <div className="pd-[50px] px-[30px] rounded-md"> */}

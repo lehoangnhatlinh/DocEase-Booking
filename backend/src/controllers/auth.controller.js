@@ -58,45 +58,35 @@ export const login = async (req, res) => {
     const patient = await User.findOne({ email });
     const doctor = await Doctor.findOne({ email });
 
-    if (patient) {
-      user = patient;
+        if(patient) {
+            user = patient
+        }
+
+        if(doctor) {
+            user = doctor
+        }
+
+        if(!user) {
+            return res.status(404).json({message: 'User not found'}); 
+        }
+        
+        //Compare password
+        const isPasswordMatch = await bcrypt.compare(req.body.password, user.password)
+        console.log(isPasswordMatch)
+
+        if(!isPasswordMatch) {
+            return res.status(400).json({status: false, message: 'Invalid email or password'});
+        }
+
+        //get token
+        const token = generateToken(user); 
+        
+        const {password, role, appointments, ...rest} = user._doc;
+        res.status(200).json({status: true, message: "Login successfully", token,role, data: {... rest}});
+
+    } catch (error) {
+        console.log(error); 
+        return res.status(500).json({success: false, message: "Internal server error"});
+
     }
-
-    if (doctor) {
-      user = doctor;
-    }
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    //Compare password
-    const isPasswordMatch = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    console.log(isPasswordMatch);
-    if (!isPasswordMatch) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid email or password" });
-    }
-
-    //get token
-    const token = generateToken(user);
-
-    const { password, role, appointments, ...rest } = user._doc;
-    res.status(200).json({
-      status: true,
-      message: "Login successfully",
-      role,
-      token,
-      data: { ...rest },
-    });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal server error" });
-  }
 };
