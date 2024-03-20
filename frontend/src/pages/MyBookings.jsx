@@ -5,7 +5,7 @@ import Loading from '../components/Loader/Loading'
 import Error from '../components/Error/Error'
 
 const MyBookings = ()=>{
-    const {data:appointments, loading, error} = useFetchData(`${BASE_URL}/appoitments/my-appointments`)
+    const {data:appointments, loading, error} = useFetchData(`${BASE_URL}/users/appointments/my-appointments`)
     return (
         <div>
             {loading && !error && <Loading/>}
@@ -13,6 +13,7 @@ const MyBookings = ()=>{
 
             {!loading && !error && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                    {console.log("booking: ",appointments)}
                     { appointments.map(doctor =>(
                          <DoctorCard doctor={doctor} key={doctor._id}/>
                     ))}

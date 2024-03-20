@@ -92,19 +92,49 @@ export const getUserProfile = async (req, res) => {
     }
 }
 
-export const getMyAppointments = async (req, res) =>{
+// export const getMyAppointments = async (req, res) =>{
 
-    try{
-        const bookings = await Booking.find({user:req.userId})
+//     try{
+//         const bookings = await Booking.find({user:req.userId})
 
-        const doctorIds = bookings.map(el=>el.doctor.id)
+//         const doctorIds = bookings.map(el=>el.doctor.id)
 
-        const doctors = await Doctor.find({_id: {$in:doctorIds}}).select('password')
+//         const doctors = await Doctor.find({_id: {$in:doctorIds}}).select('password')
 
-            res.status(200).json({success:true, messages: 'Appointments are getting', data: doctors})
+//             res.status(200).json({success:true, messages: 'Appointments are getting', data: doctors})
 
         
-    }catch(err){
+//     }catch(err){
 
+//     }
+// }
+export const getMyAppointments = async (req, res) => {
+    try {
+        const bookings = await Booking.find({ user: req.userId });
+        const doctorIds = bookings.map(el => el.doctor);
+        
+        // Lấy thông tin của các bác sĩ mà người dùng đã đặt lịch
+        const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select('-password');
+        
+        res.status(200).json({ success: true, message: 'Appointments are getting', data: doctors });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to get appointments', error: err.message });
     }
-}
+};
+
+
+// export const getMyAppointments = async (req, res) => {
+//     try {
+//         const bookings = await Booking.find({ user: req.userId }).populate({
+//             path: 'doctor',
+//             select: 'name specialization photo avgRating totalRating' // Chỉ định các trường bạn muốn populate
+//         });
+//         console.log("booking user controller: ", bookings)
+
+//         res.status(200).json({ success: true, message: 'Appointments are retrieved', data: bookings });
+
+//     } catch (err) {
+//         res.status(500).json({ success: false, message: 'Failed to get appointments', error: err.message });
+//     }
+// }
+

@@ -10,9 +10,14 @@ const DoctorSchema = new mongoose.Schema({
   role: {
     type: String,
   },
-
+  gender:{
+    type: String,
+    enum: ["Female", "Male", "Other"],
+  },
   // Fields for doctors only
-  Cardiology: { type: String },
+  specialization:{
+    type:String
+  },
   qualifications: {
     type: Array,
   },
@@ -20,7 +25,6 @@ const DoctorSchema = new mongoose.Schema({
   experiences: {
     type: Array,
   },
-
   bio: { type: String, maxLength: 50 },
   about: { type: String },
   timeSlots: { type: Array },

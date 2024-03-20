@@ -15,7 +15,7 @@ export const getAllDoctor = async (req, res) => {
                 ], 
             }).select('-password'); 
         } else {
-            doctors = await Doctor.find({ isApproved: 'approved' }).select('-password'); 
+            doctors = await Doctor.find({ isApproved: 'approved' }).populate('reviews').select('-password'); 
         }
         res.status(200).json({success: true, message: 'Doctors Found', data: doctors});
         return doctors;
@@ -27,7 +27,7 @@ export const getAllDoctor = async (req, res) => {
 export const getDoctorById = async (req, res) => {
     const id = req.params.id;
     try {
-        const doctor = await Doctor.findById(id).select('-password'); 
+        const doctor = await Doctor.findById(id).populate('reviews').select('-password'); 
         res.status(200).json({success: true, message: 'Doctor Found', data: doctor});
         return doctor;
     } catch (error) {
@@ -83,6 +83,7 @@ export const deleteDoctor = async (req, res) => {
 export const getDoctorProfile = async (req, res) => {
     const doctorId = req.doctorId; 
     try {
+<<<<<<< Updated upstream
        const doctor = await Doctor.findById(doctorId)
        if(!doctor){
         return res.status(404).json({success: false, message: 'Doctor not found'});
@@ -90,6 +91,25 @@ export const getDoctorProfile = async (req, res) => {
        const {password, ...rest} = doctor._doc;
        const appointments = await Booking.find({doctor:doctorId})
        res.status(200).json({success: true, message:'Profile info is getting', data:{... rest, appointments}})
+=======
+      console.log(doctorId)
+      const doctor = await Doctor.findById(doctorId);
+      console.log(doctor)
+      if (!doctor) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Doctor not found" });
+      }
+      const { password, ...rest } = doctor._doc;
+      const appointments = await Booking.find({doctor:doctorId});
+      res
+        .status(200)
+        .json({
+          success: true,
+          message: "Profile info is getting",
+          data: { ...rest ,appointments},
+        });
+>>>>>>> Stashed changes
     } catch (error) {
         res.status(500).json({success: false, message: 'Something went wrong, cannot get'});
     }

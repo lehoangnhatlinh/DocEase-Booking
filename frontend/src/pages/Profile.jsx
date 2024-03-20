@@ -176,7 +176,13 @@ const Profile = ({ user }) => {
               <select
                 name="gender"
                 className="text-textColor font-semibold text-[15px] leading-7 px-3 py-3 focus:outline-none"
+                value={formData.gender}
+                onChange={handleInputChange}
               >
+<<<<<<< Updated upstream
+=======
+                <option value="">Select</option>
+>>>>>>> Stashed changes
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
